@@ -19,8 +19,8 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use((req, res, next) => {
-	console.log(`${req.method} ${req.protocol}://${req.get("host")}${req.path}`);
-	next();
+  console.log(`${req.method} ${req.protocol}://${req.get("host")}${req.path}`);
+  next();
 });
 
 //? Router
@@ -33,6 +33,9 @@ app.use("/api/shops", shopsRouter);
 const tagsRouter = require("./api/tags/tags.router");
 app.use("/api/tags", tagsRouter);
 
+const ordersRouter = require("./api/orders/orders.router");
+app.use("/api/orders", ordersRouter);
+
 const usersRouter = require("./api/users/users.router");
 app.use("/api", usersRouter);
 
@@ -40,20 +43,20 @@ app.use("/media", express.static(path.join(__dirname, "media")));
 
 //? Error handler Middleware
 app.use((err, req, res, next) => {
-	res
-		.status(err.status || 500)
-		.json({ msg: err.message || "Internal Server Error" });
-	next();
+  res
+    .status(err.status || 500)
+    .json({ msg: err.message || "Internal Server Error" });
+  next();
 });
 
 //? Not Found Middleware
 app.use((req, res, next) => {
-	res.status(404).json({ msg: "Path Not Found" });
+  res.status(404).json({ msg: "Path Not Found" });
 });
 
 //? PORT and Listen
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-	console.log(`The application is running on ${PORT}`);
-	connectDB();
+  console.log(`The application is running on ${PORT}`);
+  connectDB();
 });
