@@ -10,7 +10,7 @@ const ShopsSchema = new Schema(
 		slug: String,
 		image: {
 			type: String,
-			required: true,
+			// required: true,
 		},
 		products: [
 			{
@@ -18,6 +18,10 @@ const ShopsSchema = new Schema(
 				ref: "Product",
 			},
 		],
+		owner: {
+			type: Schema.Types.ObjectId,
+			ref: "User",
+		},
 	},
 	{
 		timestamps: true,

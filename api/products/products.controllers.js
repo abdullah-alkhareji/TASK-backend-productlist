@@ -52,7 +52,7 @@ exports.deleteProductController = async (req, res, next) => {
 exports.updateProductController = async (req, res, next) => {
 	try {
 		if (req.file) {
-			req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+			req.body.image = `/${req.file.path}`;
 		}
 		const id = req.product._id;
 		const product = req.body;

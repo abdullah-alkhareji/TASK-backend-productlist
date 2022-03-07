@@ -10,7 +10,7 @@ const ProductSchema = new Schema(
 		slug: String,
 		image: {
 			type: String,
-			required: true,
+			// required: true,
 		},
 		description: String,
 		color: String,

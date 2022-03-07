@@ -9,6 +9,7 @@ const {
 	fetchProduct,
 } = require("./products.controllers");
 const upload = require("../../middleware/multer");
+const passport = require("passport");
 
 //? Set Router
 const productsRouter = express.Router();
@@ -28,10 +29,15 @@ productsRouter.param("productId", async (req, res, next, productId) => {
 
 //? Assign Router to Controllers
 productsRouter.get("/", fetchProductsController);
-productsRouter.delete("/:productId", deleteProductController);
+productsRouter.delete(
+	"/:productId",
+	passport.authenticate("jwt", { session: false }),
+	deleteProductController
+);
 productsRouter.get("/:productId", fetchSingleProductController);
 productsRouter.put(
 	"/:productId",
+	passport.authenticate("jwt", { session: false }),
 	upload.single("image"),
 	updateProductController
 );
